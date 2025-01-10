@@ -1,5 +1,8 @@
 package szlicht.daniel.sessions;
 
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+
 public class Account {
     private static int nextId = 1;
     private int id;
@@ -12,6 +15,13 @@ public class Account {
         id = nextId++;
     }
 
+    UserDetails asUserDetails() {
+        return User.builder()
+                .username(login)
+                .password(password)
+                .build();
+    }
+
     @Override
     public String toString() {
         return "Account{" +
@@ -21,7 +31,7 @@ public class Account {
                 '}';
     }
 
-    public void setPassword(String encode) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
